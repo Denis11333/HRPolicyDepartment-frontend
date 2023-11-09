@@ -1,0 +1,28 @@
+/* nav */
+.nav-items{
+  padding: 0 2vh;
+}
+
+.nav-items-with-icon{
+  display: flex;
+}
+
+.nav-item {
+  font-size: 30px;
+}
+
+.navbar__icon{
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.active {
+  background-color: #01458a;
+  color: #fff;
+  font-weight: bold;
+
+  border-radius: 5px;
+
+  padding: 5px;
+}
+

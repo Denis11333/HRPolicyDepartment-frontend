@@ -1,0 +1,31 @@
+<nav class="navbar navbar-dark bg-primary nav-height">
+
+  <div class="nav-items-with-icon">
+
+    <a routerLink="/">
+      <img ngSrc="./assets/img/modlogo.svg" class="navbar__icon" alt="" height="40"
+           width="48">
+    </a>
+
+    <div class="nav-items">
+      <a routerLink="/" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/')}">Головна</a>
+      <a routerLink="/my-vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/my-vacancies')}">Мої вакансії</a>
+      <a routerLink="/vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/vacancies')}">Вакансії</a>
+      <a routerLink="/about" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/about')}">Додаткова
+        інформація</a>
+      <a routerLink="/contacts" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/contacts')}">Контакти</a>
+    </div>
+
+  </div>
+
+
+  <div class="nav-items" *ngIf='!localStorage.getItem("token")'>
+    <a routerLink="/login" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/login')}">Увійти</a>
+    <a routerLink="/registration" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/registration')}">Зареєструватись</a>
+  </div>
+
+  <div class="nav-items" *ngIf='localStorage.getItem("token")'>
+    <a routerLink="/login" class="navbar-brand nav-item" (click)='unAuthorize()'>Вийти з акаунту</a>
+  </div>
+
+</nav>
