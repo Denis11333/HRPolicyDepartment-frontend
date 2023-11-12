@@ -1,11 +1,20 @@
-<div *ngIf='isLoading'>
-  <h1>Loading...</h1>
-</div>
+<div class='vacancy__wrapper'>
+  <hr class='vacancy-line'>
+  <div class='vacancy'>
 
-<div class='container__my-vacancies' *ngIf='!isLoading'>
-  <button class='btn btn-outline-primary' (click)='openModal(content)'>Створити вакансію</button>
+    <div>
+      <h1 class='vacancy__title'>{{ vacancy.structureName }}</h1>
+      <p class='vacancy__subtitle'> {{ vacancy.position }} </p>
+    </div>
 
-  <app-my-vacancy *ngFor='let vacancy of vacancyService.myVacancies' [vacancy]='vacancy'></app-my-vacancy>
+    <div class='vacancy__buttons'>
+      <button class='btn btn-outline-primary edit-button' (click)='openModal(content)'>Редагувати</button>
+      <button class='btn btn-outline-primary edit-button'  [routerLink]="['/my-vacancies/', this.vacancy.id]"> Продивитись Відгуки </button>
+      <button class='btn btn-outline-danger edit-button' (click)='deleteMyVacancy()'> Видалити </button>
+    </div>
+
+  </div>
+  <hr class='vacancy-line'>
 </div>
 
 <!-- Модалка -->
@@ -17,10 +26,10 @@
     </button>
   </div>
   <div class='modal-body'>
-    <form [formGroup]='vacancyCreateForm'>
+    <form [formGroup]='vacancyForm'>
       <div class='form-group'>
         <label for='input1'>Назва структури:</label>
-        <input type='text' class='form-control' id='input1' formControlName='structure'>
+        <input type='text' class='form-control' id='input1' formControlName='structureName'>
       </div>
       <div class='form-group'>
         <label for='input2'>Назва посади</label>

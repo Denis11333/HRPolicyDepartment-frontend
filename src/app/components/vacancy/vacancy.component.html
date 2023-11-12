@@ -1,8 +1,47 @@
-<div class='vacancy'>
-  <a href='#' class='vacancy__link'>
-    <hr class='vacancy-line'>
-    <h1 class='vacancy__title'>{{ vacancy.militaryStructure }}</h1>
-    <p class='vacancy__subtitle'> {{ vacancy.vacancy }} </p>
-    <hr class='vacancy-line'>
-  </a>
+<div class='vacancy__wrapper'>
+  <hr class='vacancy-line'>
+  <div class='vacancy'>
+
+    <div>
+      <h1 class='vacancy__title'>{{ vacancy.structureName }}</h1>
+      <p class='vacancy__subtitle'> {{ vacancy.position }} </p>
+    </div>
+
+    <div class='vacancy__buttons'>
+      <button class='btn btn-outline-primary' (click)='openModal(content)'>Відгукнутись</button>
+    </div>
+
+  </div>
+  <hr class='vacancy-line'>
 </div>
+
+
+<!-- Модалка -->
+<ng-template #content let-modal>
+  <div class='modal-header'>
+    <h4 class='modal-title'>Форма для відгуку на вакансію</h4>
+    <button type='button' class='close' aria-label='Close' (click)='dismissModal()'>
+      <span aria-hidden='true'>&times;</span>
+    </button>
+  </div>
+  <div class='modal-body'>
+    <form [formGroup]='vacancyForm'>
+      <div class='form-group'>
+        <label for='input1'>Номер телефону:</label>
+        <input type='text' class='form-control' id='input1' formControlName='phone'>
+      </div>
+      <div class='form-group'>
+        <label for='input2'>Вкажіть ваше прізвище, ім'я, по батькові:</label>
+        <input type='text' class='form-control' id='input3' formControlName='fullName'>
+      </div>
+      <div class='form-group'>
+        <label for='input2'>Електрона пошта:</label>
+        <input type='text' class='form-control' id='input2' formControlName='email'>
+      </div>
+    </form>
+  </div>
+  <div class='modal-footer'>
+    <button type='button' class='btn btn-outline-dark' (click)='dismissModal()'>Відміна</button>
+    <button type='button' class='btn btn-outline-primary' (click)='confirm()'>Підтвердити</button>
+  </div>
+</ng-template>

@@ -10,14 +10,14 @@ import { VacancyDetailsPageComponent } from './pages/vacancy-details-page/vacanc
 import { MyVacanciesPageComponent } from './pages/my-vacancies-page/my-vacancies-page.component';
 
 const routes: Routes = [
+  {path:'', component: MainPageComponent},
   {path:'login', component: LoginPageComponent},
   {path:'registration', component: RegistrationPageComponent},
   {path:'my-vacancies', component: MyVacanciesPageComponent},
   {path:'vacancies', component: VacanciesPageComponent},
   {path:'about', component: AboutPageComponent},
   {path:'contacts', component: ContactsPageComponent},
-  {path:'vacancy-details/:id', component: VacancyDetailsPageComponent},
-  {path:'', component: MainPageComponent},
+  {path:'my-vacancies/:id', component: VacancyDetailsPageComponent},
   {path:'**', component: MainPageComponent},
 ];
 

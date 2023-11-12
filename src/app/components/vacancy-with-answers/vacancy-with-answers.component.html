@@ -1,0 +1,25 @@
+<div class='vacancy__wrapper'>
+  <hr class='vacancy-line'>
+  <div class='vacancy'>
+
+    <div>
+      <h1 class='vacancy__title'>{{ vacancy.structureName }}</h1>
+      <p class='vacancy__subtitle'> {{ vacancy.position }} </p>
+    </div>
+
+  </div>
+  <hr class='vacancy-line'>
+</div>
+
+
+<div class='answer' *ngFor='let answer of vacancy.answers'>
+  <div>
+    <h1>Email: {{ answer.email }}</h1>
+    <h1>Mobile phone: {{ answer.phone }}</h1>
+    <h1>FullName: {{ answer.fullName }}</h1>
+  </div>
+
+  <div>
+    <button class='btn btn-outline-primary answer__button' (click)='deleteAnswer(answer.id)'>Видалити відповідь</button>
+  </div>
+</div>

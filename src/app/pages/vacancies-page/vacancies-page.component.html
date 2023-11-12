@@ -1,1 +1,7 @@
-<p>vacancies works!</p>
+<div *ngIf='isLoading'>
+  <h1>Loading...</h1>
+</div>
+
+<div class='container__vacancies' *ngIf='!isLoading'>
+  <app-vacancy *ngFor='let vacancy of vacancyService.vacancies' [vacancy]='vacancy'></app-vacancy>
+</div>

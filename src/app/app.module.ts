@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,10 +21,19 @@ import { VacancyComponent } from './components/vacancy/vacancy.component';
 import { VacanciesPageComponent } from './pages/vacancies-page/vacancies-page.component';
 import { ContactsPageComponent } from './pages/contacts-page/contacts-page.component';
 import { VacancyDetailsPageComponent } from './pages/vacancy-details-page/vacancy-details-page.component';
-import { VacancyDetailsComponent } from './components/vacancy-details/vacancy-details.component';
 import { MyVacanciesPageComponent } from './pages/my-vacancies-page/my-vacancies-page.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MyVacancyModalComponent } from './components/modals/my-vacancy-modal/my-vacancy-modal.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MyVacancyComponent } from './components/my-vacancy/my-vacancy.component';
+import { VacancyWithAnswersComponent } from './components/vacancy-with-answers/vacancy-with-answers.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { UnauthorizedHandlerService } from './services/errors/unauthorized-handler.service';
+import {
+  ConfirmBoxConfigModule,
+  DialogConfigModule,
+  NgxAwesomePopupModule,
+  ToastNotificationConfigModule,
+} from '@costlydeveloper/ngx-awesome-popup';
 
 
 @NgModule({
@@ -41,9 +50,9 @@ import { MyVacancyModalComponent } from './components/modals/my-vacancy-modal/my
     VacancyComponent,
     VacanciesPageComponent,
     VacancyDetailsPageComponent,
-    VacancyDetailsComponent,
     MyVacanciesPageComponent,
-    MyVacancyModalComponent
+    MyVacancyComponent,
+    VacancyWithAnswersComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,20 @@ import { MyVacancyModalComponent } from './components/modals/my-vacancy-modal/my
     GoogleMapsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxAwesomePopupModule.forRoot({
+      colorList: {
+        success: '#3caea3', // optional
+        info: '#2f8ee5', // optional
+        warning: '#ffc107', // optional
+        danger: '#e46464', // optional
+        customOne: '#3ebb1a', // optional
+        customTwo: '#bd47fa', // optional (up to custom five)
+      },
+    }),
+    ConfirmBoxConfigModule.forRoot(),
+
+    DialogConfigModule.forRoot(), // optional
+    ToastNotificationConfigModule.forRoot(), // optional
   ],
   providers: [
     provideAnimations(),
@@ -66,6 +89,10 @@ import { MyVacancyModalComponent } from './components/modals/my-vacancy-modal/my
       preventDuplicates: true,
       enableHtml: true,
     }),
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    JwtHelperService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: ErrorHandler, useClass: UnauthorizedHandlerService}
   ],
   bootstrap: [AppComponent],
 })

@@ -9,7 +9,7 @@
 
     <div class="nav-items">
       <a routerLink="/" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/')}">Головна</a>
-      <a routerLink="/my-vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/my-vacancies')}">Мої вакансії</a>
+      <a routerLink="/my-vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/my-vacancies')}" *ngIf='localStorage.getItem("token")'>Мої вакансії</a>
       <a routerLink="/vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/vacancies')}">Вакансії</a>
       <a routerLink="/about" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/about')}">Додаткова
         інформація</a>
