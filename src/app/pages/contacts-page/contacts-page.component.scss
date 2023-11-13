@@ -1,6 +1,7 @@
 .my-google-map {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
+  max-width: 90%;
+  height: 100%;
+  overflow: hidden;
+
+  margin: 20px auto; /* Додайте відступи зверху і знизу */
 }

@@ -1,6 +1,6 @@
 .container__main{
-  width: 1500px;
-  margin: 15px auto 0;
+  width: 80%;
+  margin: 5px auto 0;
 }
 
 .main__title{
@@ -9,9 +9,51 @@
 
 .main_subtitle{
   font-size: 20px;
+  text-align: justify;
 }
 
 
-.vacancies__title{
-  margin-top: 10px;
+.vacancies__link{
+  margin-top: 5vh;
+  font-size: 30px;
+  text-align: center;
+  background-color: #01458a;
+  cursor: pointer;
+
+  color: white;
+}
+
+.vacancies__link:hover{
+  background-color: #1f87ec;
+  cursor: pointer;
+}
+
+@media (max-width:  1200px) {
+}
+
+@media (max-width:  950px) {
+}
+
+@media (max-width: 768px) {
+  .main__title{
+    font-size: 25px;
+  }
+  .main_subtitle{
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .main__title{
+    font-size: 20px;
+  }
+  .main_subtitle{
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 460px) {
+  .main__title{
+    font-size: 15px;
+  }
 }

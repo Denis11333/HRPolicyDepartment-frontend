@@ -1,31 +1,71 @@
-<nav class="navbar navbar-dark bg-primary nav-height">
+<nav class='navbar navbar-dark nav-height' style='background-color: #01458a;'>
 
-  <div class="nav-items-with-icon">
+  <div class='nav-items-with-icon'>
 
-    <a routerLink="/">
-      <img ngSrc="./assets/img/modlogo.svg" class="navbar__icon" alt="" height="40"
-           width="48">
+    <a routerLink='/'>
+      <img src='./assets/img/modlogo.svg' class='navbar__icon' alt='' height='36' width='48'>
     </a>
 
-    <div class="nav-items">
-      <a routerLink="/" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/')}">Головна</a>
-      <a routerLink="/my-vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/my-vacancies')}" *ngIf='localStorage.getItem("token")'>Мої вакансії</a>
-      <a routerLink="/vacancies" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/vacancies')}">Вакансії</a>
-      <a routerLink="/about" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/about')}">Додаткова
+    <div class='nav-items'>
+      <a routerLink='/' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/')}">Головна</a>
+      <a routerLink='/my-vacancies' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/my-vacancies')}"
+         *ngIf='localStorage.getItem("token")'>Мої вакансії</a>
+      <a routerLink='/vacancies' class='navbar-brand nav-item'
+         [ngClass]="{'active': isActive('/vacancies')}">Вакансії</a>
+      <a routerLink='/about' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/about')}">Додаткова
         інформація</a>
-      <a routerLink="/contacts" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/contacts')}">Контакти</a>
+      <a routerLink='/contacts' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/contacts')}">Контакти</a>
     </div>
 
   </div>
 
 
-  <div class="nav-items" *ngIf='!localStorage.getItem("token")'>
-    <a routerLink="/login" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/login')}">Увійти</a>
-    <a routerLink="/registration" class="navbar-brand nav-item" [ngClass]="{'active': isActive('/registration')}">Зареєструватись</a>
+  <div class='nav-items' *ngIf='!localStorage.getItem("token")'>
+    <a routerLink='/login' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/login')}">Увійти</a>
+    <a routerLink='/registration' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/registration')}">Зареєструватись</a>
   </div>
 
-  <div class="nav-items" *ngIf='localStorage.getItem("token")'>
-    <a routerLink="/login" class="navbar-brand nav-item" (click)='unAuthorize()'>Вийти з акаунту</a>
+  <div class='nav-items' *ngIf='localStorage.getItem("token")'>
+    <a routerLink='/login' class='navbar-brand nav-item' (click)='unAuthorize()'>Вийти з акаунту</a>
   </div>
 
 </nav>
+
+<div class='burger__container'>
+
+  <div class='burger__menu'>
+
+    <div class='navbar__icon__burger'>
+      <a routerLink='/'>
+        <img src='./assets/img/modlogo.svg' alt='' height='36' width='48'>
+      </a>
+    </div>
+
+    <div *ngIf='isMenuOpen' class='d-flex flex-column nav-items__burger'>
+      <h5 routerLink='/' [ngClass]="{'active__burger': isActive('/')}">Головна</h5>
+      <h5 routerLink='/my-vacancies' [ngClass]=" {'active__burger': isActive('/my-vacancies')}"
+          *ngIf='localStorage.getItem("token")'>Мої вакансії</h5>
+      <h5 routerLink='/vacancies'
+          [ngClass]="{'active__burger': isActive('/vacancies')}">Вакансії</h5>
+      <h5 routerLink='/about' [ngClass]="{'active__burger': isActive('/about')}">Додаткова
+        інформація</h5>
+      <h5 routerLink='/contacts' [ngClass]="{'active__burger': isActive('/contacts')}">Контакти</h5>
+
+      <div *ngIf='!localStorage.getItem("token")'>
+        <h5 routerLink='/login' [ngClass]="{'active__burger': isActive('/login')}">Увійти</h5>
+        <h5 routerLink='/registration' [ngClass]="{'active__burger': isActive('/registration')}">
+          Зареєструватись</h5>
+      </div>
+
+      <div *ngIf='localStorage.getItem("token")'>
+        <h5 routerLink='/login' (click)='unAuthorize()'>Вийти з акаунту</h5>
+      </div>
+    </div>
+
+    <div class='navbar__burger'>
+      <i class='fa-solid fa-bars fa-xl' (click)='toggleMenu()'></i>
+    </div>
+
+  </div>
+
+</div>

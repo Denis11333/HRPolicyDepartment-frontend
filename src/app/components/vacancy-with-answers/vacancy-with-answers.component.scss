@@ -4,9 +4,58 @@
   border: 1px solid red;
 
   margin-bottom: 20px;
+  padding: 20px;
+}
+
+.answer__parameter{
+  font-size: 30px;
+}
+
+.btn__wrapper{
+  display: flex;
+  align-items: center; /* Вирівнювання по вертикалі по центру */
+  justify-content: center; /* Вирівнювання по горизонталі по центру */
 }
 
 .answer__button{
-  margin-top: 30%;
   margin-right: 20px;
+}
+
+.vacancy__present{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+@media (max-width:  768px) {
+  .answer{
+    display: block;
+  }
+
+  .btn__wrapper{
+    display: block;
+  }
+
+  .vacancy__present{
+    font-size: 25px;
+  }
+
+  .answer__parameter{
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 450px) {
+  .answer__parameter{
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 350px) {
+  .answer__parameter{
+    font-size: 15px;
+  }
+
+  .vacancy__present{
+    font-size: 20px;
+  }
 }

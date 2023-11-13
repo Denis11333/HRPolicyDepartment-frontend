@@ -1,35 +1,90 @@
 /* vacancy */
-.vacancy{
+.vacancy {
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid red;
+  padding-bottom: 20px;
 }
 
-.vacancy__link{
+.vacancy.first{
+  margin-top: 20px;
+}
+
+.vacancy.last{
+  border-bottom: 1px solid red;
+}
+
+.vacancy__link {
   text-decoration: none;
   color: black;
 }
 
-.vacancy__wrapper:hover{
+.vacancy__wrapper:hover {
   background-color: lightblue;
 }
 
-.vacancy-line{
-  color: red;
-}
-
-.vacancies__title{
-
-}
-
-.vacancy__subtitle{
-
-}
-
-.vacancy__buttons{
-}
-
-.edit-button{
+.vacancy__btn {
   display: block;
-  margin-top: 10px;
+  margin-top: 20px;
   width: 200px;
+}
+
+.vacancy__title__description {
+  font-size: 15px;
+  color: rgba(159, 175, 141, 0.7);
+  font-weight: 700;
+  padding: 0;
+  margin: 15px 0 0;
+}
+
+.vacancy__subtitle__description{
+  font-size: 15px;
+  color: rgba(159, 175, 141, 0.7);
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+
+.vacancy__title,
+.vacancy__subtitle {
+  font-size: 30px;
+}
+
+
+.vacancy__buttons {
+  margin-top: 75px
+}
+
+@media (max-width:  768px) {
+  .vacancy{
+    display: block;
+  }
+  .vacancy__buttons{
+    margin-top: 20px;
+  }
+
+  .vacancy__title,
+  .vacancy__subtitle {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 450px) {
+  .vacancy__title,
+  .vacancy__subtitle {
+    font-size: 20px;
+  }
+
+  .vacancy__subtitle__description,
+  .vacancy__title__description{
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 475px) {
+
+}
+
+@media (max-width: 375px) {
+
 }

@@ -3,5 +3,7 @@
 </div>
 
 <div class='container__vacancies' *ngIf='!isLoading'>
-  <app-vacancy *ngFor='let vacancy of vacancyService.vacancies' [vacancy]='vacancy'></app-vacancy>
+  <input class="form-control search__input" placeholder="Пошук по назві структури" [(ngModel)]='searchByStructureName'>
+
+  <app-vacancy *ngFor='let vacancy of vacancyService.vacancies | filterVacancy: searchByStructureName' [vacancy]='vacancy'></app-vacancy>
 </div>

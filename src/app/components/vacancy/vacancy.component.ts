@@ -57,6 +57,8 @@ export class VacancyComponent {
 
     this.vacancyAnswerService.createAnswer({...this.vacancyForm.value,vacancyId: this.vacancy.id})
 
+    this.toastr.success('Заявка була відправленна.', 'Успіх')
+
     this.dismissModal();
   }
 }

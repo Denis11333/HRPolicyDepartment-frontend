@@ -10,8 +10,22 @@ import { ToastrService } from 'ngx-toastr';
 export class NavigationComponent implements OnInit {
   currentUrl: string;
 
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+
   constructor(private router: Router, private toastr: ToastrService) {
     this.currentUrl = this.router.url;
+
+    router.events.subscribe(() => {
+      this.closeMenu()
+    });
   }
 
   ngOnInit() {

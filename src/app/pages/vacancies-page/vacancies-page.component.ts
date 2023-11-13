@@ -8,6 +8,7 @@ import { VacancyService } from '../../services/vacancy.service';
 })
 export class VacanciesPageComponent {
   isLoading = true;
+  searchByStructureName  = ''
 
   constructor(public vacancyService: VacancyService) {
     this.vacancyService.getVacancies();

@@ -12,14 +12,18 @@
 </div>
 
 
+<div>
+  <p class='vacancy__present'>Відгуки на вакансію:</p>
+</div>
+
 <div class='answer' *ngFor='let answer of vacancy.answers'>
   <div>
-    <h1>Email: {{ answer.email }}</h1>
-    <h1>Mobile phone: {{ answer.phone }}</h1>
-    <h1>FullName: {{ answer.fullName }}</h1>
+    <p class='answer__parameter'><b>Пошта:</b> {{ answer.email }}</p>
+    <p class='answer__parameter'><b>Номер телефону:</b> {{ answer.phone }}</p>
+    <p class='answer__parameter'><b>ПІБ:</b> {{ answer.fullName }}</p>
   </div>
 
-  <div>
+  <div class='btn__wrapper'>
     <button class='btn btn-outline-primary answer__button' (click)='deleteAnswer(answer.id)'>Видалити відповідь</button>
   </div>
 </div>

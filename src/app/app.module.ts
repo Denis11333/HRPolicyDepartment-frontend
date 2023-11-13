@@ -34,6 +34,8 @@ import {
   NgxAwesomePopupModule,
   ToastNotificationConfigModule,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { MatIconModule } from '@angular/material/icon';
+import { FilterVacancyPipe } from './pipes/filter-vacancy.pipe';
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import {
     MyVacanciesPageComponent,
     MyVacancyComponent,
     VacancyWithAnswersComponent,
+    FilterVacancyPipe
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,9 @@ import {
     ConfirmBoxConfigModule.forRoot(),
 
     DialogConfigModule.forRoot(), // optional
-    ToastNotificationConfigModule.forRoot(), // optional
+    ToastNotificationConfigModule.forRoot(),
+    MatIconModule,
+    // optional
   ],
   providers: [
     provideAnimations(),

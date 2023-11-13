@@ -1,6 +1,8 @@
 /* styles.css */
 .carousel-image {
-  height: 70vh;
+  height: auto;
+  max-height: 70vh;
+  width: 100%;
 }
 
 .slide-title{
@@ -8,3 +10,34 @@
   font-weight: 900;
   color: white;
 }
+
+@media (max-width:  1350px) {
+  .slide-title{
+    font-size: 40px;
+  }
+}
+
+@media (max-width:  1100px) {
+  .slide-title{
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 876px) {
+  .slide-title{
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 700px) {
+  .slide-title{
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .slide-title{
+    font-size: 18px;
+  }
+}
+

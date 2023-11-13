@@ -5,7 +5,9 @@
 <div class='container__my-vacancies' *ngIf='!isLoading'>
   <button class='btn btn-outline-primary' (click)='openModal(content)'>Створити вакансію</button>
 
-  <app-my-vacancy *ngFor='let vacancy of vacancyService.myVacancies' [vacancy]='vacancy'></app-my-vacancy>
+  <app-my-vacancy *ngFor='let vacancy of vacancyService.myVacancies;first as isFirst; last as isLast' [vacancy]='vacancy' [first]='isFirst' [last]='isLast'>
+
+  </app-my-vacancy>
 </div>
 
 <!-- Модалка -->

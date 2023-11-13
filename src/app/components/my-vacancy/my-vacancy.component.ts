@@ -18,12 +18,14 @@ import {
 })
 export class MyVacancyComponent implements OnInit {
   @Input() vacancy: Vacancy;
+  @Input() first = false;
+  @Input() last = false;
   vacancyForm: FormGroup;
 
   constructor(private modalService: NgbModal,
               private toastr: ToastrService,
               private fb: FormBuilder,
-              private vacancyService: VacancyService) {
+              public vacancyService: VacancyService) {
   }
 
   ngOnInit() {
