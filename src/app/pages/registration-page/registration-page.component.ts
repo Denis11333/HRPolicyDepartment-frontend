@@ -16,28 +16,22 @@ export class RegistrationPageComponent {
   constructor(private toastr: ToastrService, private fb: FormBuilder, private authService: AuthService,
               private router: Router) {
     this.userForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(5)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
     });
   }
 
   onSubmit() {
     if (this.userForm.invalid) {
-      if (this.userForm.get('username')?.hasError('required')) {
-        this.toastr.error('Ім\'я користувача - обов\'язкове поле', 'Помилка');
-      }
+      this.toastr.clear()
 
-      if (this.userForm.get('username')?.hasError('minlength')) {
-        this.toastr.error('Ім\'я користувача має бути мінімум з 5 символів', 'Помилка');
-      }
+      this.displayErrorIfPresent('username', 'required', 'Ім\'я користувача - обов\'язкове поле')
+      this.displayErrorIfPresent('username', 'minlength', 'Ім\'я користувача має бути мінімум з 5 символів')
+      this.displayErrorIfPresent('username', 'maxlength', 'Ім\'я користувача має бути не більше 20 символів')
 
-      if (this.userForm.get('password')?.hasError('required')) {
-        this.toastr.error('Пароль - обов\'язкове поле', 'Помилка');
-      }
-
-      if (this.userForm.get('password')?.hasError('minlength')) {
-        this.toastr.error('Пароль має бути мінімум з 6 символів', 'Помилка');
-      }
+      this.displayErrorIfPresent('password', 'required', 'Пароль - обов\'язкове поле')
+      this.displayErrorIfPresent('password', 'minlength', 'Пароль має бути мінімум з 5 символів')
+      this.displayErrorIfPresent('password', 'maxlength', 'Пароль має бути не більше 20 символів')
 
       return;
     }
@@ -48,7 +42,15 @@ export class RegistrationPageComponent {
     })
       .pipe(
         catchError((error) => {
-          this.toastr.error(error.error.message)
+          this.toastr.clear()
+
+          const errorMessages = Array.isArray(error.error.message)
+            ? error.error.message
+            : [error.error.message];
+
+          errorMessages.forEach((message: string) => {
+            this.toastr.error(message);
+          });
           return throwError(error)
         })
       )
@@ -56,5 +58,13 @@ export class RegistrationPageComponent {
       this.toastr.success('Реєстрація успішна');
       this.router.navigate(['/login']);
     });
+  }
+
+  private displayErrorIfPresent(controlName: string, errorType: string, errorMessage: string): void {
+    const control = this.userForm.get(controlName);
+
+    if (control?.hasError(errorType)) {
+      this.toastr.error(errorMessage, 'Помилка');
+    }
   }
 }

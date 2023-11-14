@@ -17,22 +17,20 @@ export class VacancyAnswerService {
   }
 
   createAnswer(answer: VacancyAnswerCreateDto) {
-    return this.http.post<VacancyAnswer>(`${environment.apiUrl}/vacancy-answer`, answer).pipe(
-      tap(answer => this.vacancy.answers.push(answer)),
-    ).subscribe();
+    return this.http.post<VacancyAnswer>(`${environment.apiUrl}/vacancy-answer`, answer)
   }
 
-  deleteVacancy(answerId: number) {
+  deleteAnswer(answerId: number) {
     return this.http.delete(`${environment.apiUrl}/vacancy-answer/${answerId}`).pipe(
       tap(() => {
         const answerIndex = this.vacancy.answers.findIndex(answer =>  answer.id === answerId)
         this.vacancy.answers.splice(answerIndex, 1)
-      })).subscribe();
+      }));
   }
 
   getVacancyWithAnswers(vacancyId: string) {
     return this.http.get<Vacancy>(`${environment.apiUrl}/vacancies/${vacancyId}`).pipe(
       tap(vacancy => this.vacancy = vacancy),
-    ).subscribe();
+    );
   }
 }

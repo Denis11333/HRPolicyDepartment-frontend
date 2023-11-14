@@ -19,7 +19,6 @@
 
   </div>
 
-
   <div class='nav-items' *ngIf='!localStorage.getItem("token")'>
     <a routerLink='/login' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/login')}">Увійти</a>
     <a routerLink='/registration' class='navbar-brand nav-item' [ngClass]="{'active': isActive('/registration')}">Зареєструватись</a>

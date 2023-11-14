@@ -91,7 +91,7 @@ import { FilterVacancyPipe } from './pipes/filter-vacancy.pipe';
     provideToastr({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
+      preventDuplicates: false,
       enableHtml: true,
     }),
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

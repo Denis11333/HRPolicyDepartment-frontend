@@ -1,7 +1,7 @@
 <div class='vacancy__wrapper'>
-  <div class='vacancy'>
+  <div class='vacancy' [ngClass]="{'first' : first, 'last' : last}">
 
-    <div>
+  <div>
       <h5 class='vacancy__title__description'>Назва структури</h5>
       <p class='vacancy__title'>{{ vacancy.structureName }}</p>
       <h5 class='vacancy__subtitle__description'>Посада</h5>
@@ -27,16 +27,16 @@
   <div class='modal-body'>
     <form [formGroup]='vacancyForm'>
       <div class='form-group'>
-        <label for='input1'>Номер телефону:</label>
+        <label for='input1'>Номер телефону (повинен починатися з '+'):</label>
         <input type='text' class='form-control' id='input1' formControlName='phone'>
-      </div>
-      <div class='form-group'>
-        <label for='input2'>Вкажіть ваше прізвище, ім'я, по батькові:</label>
-        <input type='text' class='form-control' id='input3' formControlName='fullName'>
       </div>
       <div class='form-group'>
         <label for='input2'>Електрона пошта:</label>
         <input type='text' class='form-control' id='input2' formControlName='email'>
+      </div>
+      <div class='form-group'>
+        <label for='input3'>Ваше прізвище, ім'я, по батькові:</label>
+        <input type='text' class='form-control' id='input3' formControlName='fullName'>
       </div>
     </form>
   </div>

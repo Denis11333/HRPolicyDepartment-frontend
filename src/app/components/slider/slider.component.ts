@@ -20,11 +20,11 @@ export class SliderComponent implements OnInit {
       src: 'assets/img/MID.jpeg',
       title: 'Головне управління розвідки',
     };
-    // this.slides[2] = {
-    //   id: 2,
-    //   src: 'assets/img/Mitit.jpg',
-    //   title: 'Військовий інститут телекомунікації та інформатизація імені Героїв Крут',
-    //   subtitle: 'Військові ІТ-фахівці - це первинна лінія оборони в цифрову епоху.'
-    // }
+
+    this.slides[2] = {
+      id: 2,
+      src: 'assets/img/Assault.jpg',
+      title: 'Штурмова бригада',
+    };
   }
 }

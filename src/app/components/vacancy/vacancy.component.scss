@@ -55,6 +55,15 @@
   margin-top: 75px
 }
 
+.vacancy.first{
+  margin-top: 20px;
+}
+
+.vacancy.last{
+  border-bottom: 1px solid red;
+}
+
+
 @media (max-width:  768px) {
   .vacancy{
     display: block;

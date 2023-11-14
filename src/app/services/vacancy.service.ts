@@ -20,19 +20,19 @@ export class VacancyService {
   createVacancy(vacancy: VacancyCreateDto) {
     return this.http.post<Vacancy>(`${environment.apiUrl}/vacancies`, vacancy).pipe(
       tap(myVacancy => this.myVacancies.push(myVacancy)),
-    ).subscribe();
+    );
   }
 
   getVacancies() {
     return this.http.get<Vacancy[]>(`${environment.apiUrl}/vacancies`).pipe(
       tap(vacancies => this.vacancies = vacancies),
-    ).subscribe();
+    );
   }
 
   getMyVacancies() {
     return this.http.get<Vacancy[]>(`${environment.apiUrl}/vacancies/my`).pipe(
       tap(myVacancies => this.myVacancies = myVacancies),
-    ).subscribe();
+    );
   }
 
   editMyVacancy(id: number, vacancyUpdateDto: VacancyUpdateDto) {
@@ -43,7 +43,7 @@ export class VacancyService {
           this.myVacancies[indexVacancy] = { id, ...vacancyUpdateDto } as Vacancy;
         }
       }),
-    ).subscribe();
+    );
   }
 
   deleteMyVacancy(id: number){
@@ -54,6 +54,6 @@ export class VacancyService {
           this.myVacancies.splice(indexVacancy, 1)
         }
       }),
-    ).subscribe()
+    )
   }
 }

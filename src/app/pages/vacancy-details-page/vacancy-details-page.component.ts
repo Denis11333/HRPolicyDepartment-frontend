@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VacancyAnswerService } from '../../services/vacancy-answer.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vacancy-details-page',
@@ -13,7 +15,8 @@ export class VacancyDetailsPageComponent implements OnInit {
 
   constructor(public vacancyAnswerService : VacancyAnswerService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
 
   }
 
@@ -21,7 +24,20 @@ export class VacancyDetailsPageComponent implements OnInit {
     this.vacancyId = this.route.snapshot.paramMap.get('id')
 
     if(this.vacancyId !== null) {
-      this.vacancyAnswerService.getVacancyWithAnswers(this.vacancyId)
+      this.vacancyAnswerService.getVacancyWithAnswers(this.vacancyId).pipe(
+        catchError((error) => {
+          this.toastr.clear()
+
+          const errorMessages = Array.isArray(error.error.message)
+            ? error.error.message
+            : [error.error.message];
+
+          errorMessages.forEach((message: string) => {
+            this.toastr.error(message);
+          });
+          return throwError(error);
+        }),
+      ).subscribe()
     }else{
       this.router.navigate(['/my-vacancies'])
     }

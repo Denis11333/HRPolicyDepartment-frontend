@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { VacancyService } from '../../services/vacancy.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-my-vacancies-page',
@@ -18,11 +19,16 @@ export class MyVacanciesPageComponent {
               private fb: FormBuilder,
               public vacancyService: VacancyService) {
     this.vacancyCreateForm = this.fb.group({
-      structure: ['', [Validators.required, Validators.minLength(5)]],
-      position: ['', [Validators.required, Validators.minLength(6)]],
+      structureName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]],
+      position: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],
     });
 
-    this.vacancyService.getMyVacancies();
+    this.vacancyService.getMyVacancies().pipe(
+      catchError((error) => {
+        this.toastr.error(error.error.message);
+        return throwError(error);
+      }),
+    ).subscribe();
 
     this.isLoading = false;
   }
@@ -37,37 +43,44 @@ export class MyVacanciesPageComponent {
 
   confirm() {
     if (this.vacancyCreateForm.invalid) {
-      if (this.vacancyCreateForm.get('structure')?.hasError('required')) {
-        this.toastr.error('Вказувати структуру - обов\'язково', 'Помилка');
-      }
+      this.toastr.clear()
 
-      if (this.vacancyCreateForm.get('structure')?.hasError('minlength')) {
-        this.toastr.error('Структура має бути мінімум з 5 символів', 'Помилка');
-      }
+      this.displayErrorIfPresent('structureName', 'required', 'Структура - обов\'язкове поле')
+      this.displayErrorIfPresent('structureName', 'minlength', 'Назва структури має бути мінімум з 5 символів')
+      this.displayErrorIfPresent('structureName', 'maxlength', 'Назва структури має бути не більше 35 символів')
 
-      if (this.vacancyCreateForm.get('position')?.hasError('required')) {
-        this.toastr.error('Вакансія - обов\'язкове поле', 'Помилка');
-      }
-
-      if (this.vacancyCreateForm.get('position')?.hasError('minlength')) {
-        this.toastr.error('Назва вакансії має бути мінімум з 6 символів', 'Помилка');
-      }
+      this.displayErrorIfPresent('position', 'required', 'Посада - обов\'язкове поле')
+      this.displayErrorIfPresent('position', 'minlength', 'Назва вакансії має бути мінімум з 5 символів')
+      this.displayErrorIfPresent('position', 'maxlength', 'Назва посади має бути не більше 45 символів')
 
       return;
     }
 
-    console.log(this.vacancyCreateForm.get('structure')?.value,
-      this.vacancyCreateForm.get('position')?.value);
+    this.vacancyService.createVacancy(this.vacancyCreateForm.value).pipe(
+      catchError((error) => {
+        this.toastr.clear()
 
-    this.vacancyService.createVacancy({
-        structureName: this.vacancyCreateForm.get('structure')?.value,
-        position: this.vacancyCreateForm.get('position')?.value,
-      },
-    );
+        const errorMessages = Array.isArray(error.error.message)
+          ? error.error.message
+          : [error.error.message];
 
-    this.vacancyCreateForm.get('structure')?.setValue('');
-    this.vacancyCreateForm.get('position')?.setValue('');
+        errorMessages.forEach((message: string) => {
+          this.toastr.error(message);
+        });
+        return throwError(error);
+      }),
+    ).subscribe(() => this.toastr.success('Вакансія створена.', 'Успіх'));
+
+    this.vacancyCreateForm.reset()
 
     this.dismissModal();
+  }
+
+  private displayErrorIfPresent(controlName: string, errorType: string, errorMessage: string): void {
+    const control = this.vacancyCreateForm.get(controlName);
+
+    if (control?.hasError(errorType)) {
+      this.toastr.error(errorMessage, 'Помилка');
+    }
   }
 }

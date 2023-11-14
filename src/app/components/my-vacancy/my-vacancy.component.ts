@@ -10,6 +10,7 @@ import {
   DisappearanceAnimation,
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-my-vacancy',
@@ -30,8 +31,8 @@ export class MyVacancyComponent implements OnInit {
 
   ngOnInit() {
     this.vacancyForm = this.fb.group({
-      structureName: [this.vacancy.structureName, [Validators.required, Validators.minLength(5)]],
-      position: [this.vacancy.position, [Validators.required, Validators.minLength(6)]],
+      structureName: [this.vacancy.structureName, [Validators.required, Validators.minLength(5), Validators.maxLength(35)]],
+      position: [this.vacancy.position, [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],
     });
   }
 
@@ -45,28 +46,43 @@ export class MyVacancyComponent implements OnInit {
 
   confirm() {
     if (this.vacancyForm.invalid) {
-      if (this.vacancyForm.get('structureName')?.hasError('required')) {
-        this.toastr.error('Вказувати структуру - обов\'язково', 'Помилка');
-      }
+      this.toastr.clear()
 
-      if (this.vacancyForm.get('structureName')?.hasError('minlength')) {
-        this.toastr.error('Структура має бути мінімум з 5 символів', 'Помилка');
-      }
+      this.displayErrorIfPresent('structureName', 'required', 'Структура - обов\'язкове поле')
+      this.displayErrorIfPresent('structureName', 'minlength', 'Назва структури має бути мінімум з 5 символів')
+      this.displayErrorIfPresent('structureName', 'maxlength', 'Назва структури має бути не більше 35 символів')
 
-      if (this.vacancyForm.get('position')?.hasError('required')) {
-        this.toastr.error('Вакансія - обов\'язкове поле', 'Помилка');
-      }
-
-      if (this.vacancyForm.get('position')?.hasError('minlength')) {
-        this.toastr.error('Назва вакансії має бути мінімум з 6 символів', 'Помилка');
-      }
+      this.displayErrorIfPresent('position', 'required', 'Посада - обов\'язкове поле')
+      this.displayErrorIfPresent('position', 'minlength', 'Назва вакансії має бути мінімум з 5 символів')
+      this.displayErrorIfPresent('position', 'maxlength', 'Назва посади має бути не більше 45 символів')
 
       return;
     }
 
-    this.vacancyService.editMyVacancy(this.vacancy.id, this.vacancyForm.value);
+    this.vacancyService.editMyVacancy(this.vacancy.id, this.vacancyForm.value).pipe(
+      catchError((error) => {
+        this.toastr.clear()
+
+        const errorMessages = Array.isArray(error.error.message)
+          ? error.error.message
+          : [error.error.message];
+
+        errorMessages.forEach((message: string) => {
+          this.toastr.error(message);
+        });
+        return throwError(error);
+      }),
+    ).subscribe(() => this.toastr.info('Вакансія була змінена.'));
 
     this.dismissModal();
+  }
+
+  private displayErrorIfPresent(controlName: string, errorType: string, errorMessage: string): void {
+    const control = this.vacancyForm.get(controlName);
+
+    if (control?.hasError(errorType)) {
+      this.toastr.error(errorMessage, 'Помилка');
+    }
   }
 
   deleteMyVacancy() {
@@ -89,7 +105,12 @@ export class MyVacancyComponent implements OnInit {
     // Simply open the popup
     newConfirmBox.openConfirmBox$().subscribe((result) => {
       if (result.success) {
-        this.vacancyService.deleteMyVacancy(this.vacancy.id);
+        this.vacancyService.deleteMyVacancy(this.vacancy.id).pipe(
+          catchError((error) => {
+            this.toastr.error(error.error.message);
+            return throwError(error);
+          }),
+        ).subscribe(() => this.toastr.success('Вакансія була видалена.', 'Успіх'));
       }
     });
   }
