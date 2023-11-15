@@ -56,7 +56,7 @@ export class VacancyComponent {
       return;
     }
 
-    this.vacancyAnswerService.createAnswer({ ...this.vacancyForm.value, vacancyId: this.vacancy.id }).pipe(
+    this.vacancyAnswerService.createAnswer({ ...this.vacancyForm.value, phone: '+' + String(this.vacancyForm.get('phone')?.value) , vacancyId: this.vacancy.id }).pipe(
       catchError((error) => {
         this.toastr.clear()
 
