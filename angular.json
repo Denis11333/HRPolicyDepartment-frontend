@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "HRPolicyDepartment:build:production"
+              "buildTarget": "HRPolicyDepartment:build:production"
             },
             "development": {
-              "browserTarget": "HRPolicyDepartment:build:development"
+              "buildTarget": "HRPolicyDepartment:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "HRPolicyDepartment:build"
+            "buildTarget": "HRPolicyDepartment:build"
           }
         },
         "test": {
